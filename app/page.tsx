@@ -3,7 +3,6 @@
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-
 import styles from "./page.module.css";
 
 const experiences = [
@@ -140,10 +139,39 @@ const heroServices = [
 export default function Home() {
   const pageRef = useRef<HTMLDivElement>(null);
   const [isSocialMenuOpen, setIsSocialMenuOpen] = useState(false);
+  const [loadingProgress, setLoadingProgress] = useState(0);
+  const [isInitialLoading, setIsInitialLoading] = useState(true);
   const cvItem = socialItems.find((item) => item.label === "CV");
   const menuSocialItems = socialItems.filter((item) => item.label !== "CV");
 
   useEffect(() => {
+    let finishTimer: ReturnType<typeof setTimeout> | undefined;
+    const progressTimer = setInterval(() => {
+      setLoadingProgress((prev) => {
+        const nextValue = Math.min(prev + 2, 100);
+
+        if (nextValue === 100) {
+          clearInterval(progressTimer);
+          finishTimer = setTimeout(() => setIsInitialLoading(false), 180);
+        }
+
+        return nextValue;
+      });
+    }, 38);
+
+    return () => {
+      clearInterval(progressTimer);
+      if (finishTimer) {
+        clearTimeout(finishTimer);
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    if (isInitialLoading) {
+      return;
+    }
+
     gsap.registerPlugin(ScrollTrigger);
 
     const ctx = gsap.context(() => {
@@ -193,7 +221,33 @@ export default function Home() {
       ctx.revert();
       ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
     };
-  }, []);
+  }, [isInitialLoading]);
+
+  if (isInitialLoading) {
+    return (
+      <div className={styles.loaderScreen} role="status" aria-live="polite">
+        <div className={styles.loaderCard}>
+          <img
+            src="/dietCoke.png"
+            width={120}
+            height={120}
+            alt="Diet Coke can"
+            className={styles.loaderImage}
+          />
+          <p className="text-black! text-center">
+            Oh shit! One sec dont leave im getting the website together
+          </p>
+          <div className={styles.loaderBarTrack} aria-hidden>
+            <div
+              className={styles.loaderBarFill}
+              style={{ width: `${loadingProgress}%` }}
+            />
+          </div>
+          <p className={styles.loaderPercent}>{loadingProgress}%</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div ref={pageRef} className={styles.page}>
@@ -268,10 +322,20 @@ export default function Home() {
               <br />
               PORTFOLIO
             </h1>
+            <img
+              src="/dietCoke.png"
+              alt="bobbleHead"
+              className="absolute top-0 rotate-15 left-4 w-12 md:w-32 md:bottom-0 md:right-4 xl:-top-10"
+            />
+            <img
+              src="/bobbleHead.png"
+              alt="bobbleHead"
+              className="absolute top-18 right-4 w-20 md:w-32 md:bottom-0 md:right-4"
+            />
           </div>
 
           <div className="flex flex-col items-center justify-center px-4 pt-6">
-            <p className="text-2xl! uppercase text-orange-500! font-semibold w-full text-center">
+            <p className="text-2xl! bg-linear-to-r from-orange-500 to-yellow-300 text-transparent bg-clip-text uppercase font-semibold w-full text-center">
               Senior Frontend Developer
             </p>
             <p className="text-xl! font-medium w-full pt-1 text-center">
@@ -282,7 +346,9 @@ export default function Home() {
 
           <div className="px-4 py-6 w-full h-full flex items-center gap-4 flex-wrap  justify-center">
             {heroServices.map((service) => (
-              <div className="flex items-center gap-2 border border-zinc-200 px-4 py-1 rounded-full">
+              <div
+                key={service}
+                className="flex items-center gap-2 border border-zinc-200 px-4 py-1 rounded-full">
                 <span className="w-1.5 h-1.5 ring-2 ring-orange-200 bg-orange-600 rounded-full"></span>
                 <span className="whitespace-nowrap font-medium">{service}</span>
               </div>
