@@ -261,14 +261,15 @@ export default function Home() {
             <p className={styles.logo}>AJAY JAYAPRAKASH</p>
             <div className="flex items-center gap-2 justify-between w-full">
               <nav className={styles.pillNav} aria-label="Main">
-                {navItems.map((item) => (
+                {navItems.map((item, index) => (
                   <a
-                    className="hover:bg-zinc-100! text-sm! md:text-base! transition-all duration-300 hover:scale-105 cursor-pointer rounded-full px-2! md:px-3! py-1"
-                    key={item.label}
+                    className="cursor-pointer ring-2 w-8! h-8!  min-w-8! flex items-center justify-center rounded-full ring-zinc-200/50 border-zinc-300!"
+                    key={item.label + index}
                     href={item.href}
                     target="_blank"
+                    title={item.label}
                     rel="noreferrer">
-                    {item.label}
+                    {item.label.slice(0, 2)}
                   </a>
                 ))}
               </nav>
@@ -317,11 +318,7 @@ export default function Home() {
           </header>
 
           <div className={styles.heroMain} data-hero-headline>
-            <h1>
-              EXPLORE MY
-              <br />
-              PORTFOLIO
-            </h1>
+            <h1>EXPLORE MY PORTFOLIO</h1>
             <img
               src="/dietCoke.png"
               alt="bobbleHead"
@@ -334,7 +331,7 @@ export default function Home() {
             />
           </div>
 
-          <div className="flex flex-col items-center justify-center px-4 pt-6">
+          <div className="flex flex-col items-center justify-center px-4 md:pt-6">
             <p className="text-xl! md:text-2xl! bg-linear-to-r from-orange-500 to-yellow-300 text-transparent bg-clip-text uppercase font-semibold w-full text-center">
               Senior Frontend Developer
             </p>

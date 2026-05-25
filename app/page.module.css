@@ -776,4 +776,11 @@
   .awards article:last-child {
     grid-column: auto;
   }
+
+  .heroMain h1 {
+    /* font-family: "Arial Black", Impact, sans-serif; */
+    font-size: clamp(2rem, 11vw, 4rem);
+    line-height: 1.1;
+    letter-spacing: -0.05em;
+  }
 }
