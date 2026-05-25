@@ -275,7 +275,7 @@ export default function Home() {
               <div className={styles.heroSocials}>
                 {cvItem ? (
                   <a
-                    className="bg-orange-500! hover:bg-orange-600! w-7 h-7 flex items-center justify-center text-xs! transition-all duration-300 hover:scale-105 text-white! cursor-pointer rounded-full"
+                    className="bg-orange-500! ring-2 ring-orange-300/50 border-orange-600! shadow border hover:ring-orange-300! hover:bg-orange-600! w-8 h-8 flex items-center justify-center text-xs! transition-all duration-300 hover:scale-105 text-white! cursor-pointer rounded-full"
                     href={cvItem.href}
                     download="AjayJayaprakashCV.pdf"
                     aria-label={cvItem.label}>
@@ -284,7 +284,7 @@ export default function Home() {
                 ) : null}
                 <div className="relative">
                   <button
-                    className="cursor-pointer"
+                    className="cursor-pointer ring-2 ring-zinc-200/50 border-zinc-300!"
                     type="button"
                     aria-label="Menu"
                     aria-expanded={isSocialMenuOpen}
@@ -325,17 +325,17 @@ export default function Home() {
             <img
               src="/dietCoke.png"
               alt="bobbleHead"
-              className="absolute top-0 rotate-15 left-4 w-12 md:w-32 md:bottom-0 md:right-4 xl:-top-10"
+              className="absolute -top-4 rotate-15 left-0 w-12 md:w-32 md:bottom-0 md:right-4 xl:-top-10"
             />
             <img
               src="/bobbleHead.png"
               alt="bobbleHead"
-              className="absolute top-18 right-4 w-20 md:w-32 md:bottom-0 md:right-4"
+              className="absolute top-18 hidden md:block right-4 w-20 md:w-32 md:bottom-0 md:right-4"
             />
           </div>
 
           <div className="flex flex-col items-center justify-center px-4 pt-6">
-            <p className="text-2xl! bg-linear-to-r from-orange-500 to-yellow-300 text-transparent bg-clip-text uppercase font-semibold w-full text-center">
+            <p className="text-xl! md:text-2xl! bg-linear-to-r from-orange-500 to-yellow-300 text-transparent bg-clip-text uppercase font-semibold w-full text-center">
               Senior Frontend Developer
             </p>
             <p className="text-xl! font-medium w-full pt-1 text-center">
