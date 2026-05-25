@@ -263,7 +263,7 @@ export default function Home() {
               <nav className={styles.pillNav} aria-label="Main">
                 {navItems.map((item) => (
                   <a
-                    className="hover:bg-zinc-100! transition-all duration-300 hover:scale-105 cursor-pointer rounded-full px-3! py-1"
+                    className="hover:bg-zinc-100! text-sm! md:text-base! transition-all duration-300 hover:scale-105 cursor-pointer rounded-full px-2! md:px-3! py-1"
                     key={item.label}
                     href={item.href}
                     target="_blank"
