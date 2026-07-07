@@ -238,9 +238,9 @@ export default function Home() {
 
           <div className={styles.heroMain} data-hero-headline>
             <h1>
-              EXPLORE MY
+              LAWYER TURNED
               <br />
-              PORTFOLIO
+              DEVELOPER
             </h1>
             <img
               src="/dietCoke.png"

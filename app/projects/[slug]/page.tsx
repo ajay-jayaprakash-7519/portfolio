@@ -39,13 +39,9 @@ export default async function ProjectPage({
 
         <p className={styles.details}>{project.details}</p>
 
-        {project.screenshots.length > 0 ? (
-          <div className={styles.screenshots}>
-            {project.screenshots.map((src, i) => (
-              <div key={i} className={styles.screenshotWrap}>
-                <img src={src} alt={`${project.title} screenshot ${i + 1}`} />
-              </div>
-            ))}
+        {project.image ? (
+          <div className={styles.screenshotWrap}>
+            <img src={project.image} alt={project.title} />
           </div>
         ) : (
           <div className={styles.screenshotsPlaceholder}>
