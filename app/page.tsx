@@ -1,20 +1,22 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import styles from "./page.module.css";
+import { projects } from "@/lib/projects";
 
 const experiences = [
   {
-    years: "May 2023 - Present",
+    years: "May 2022 - Present",
     role: "E9 Solutions (Senior Frontend Developer)",
-    text: "Designed AI-focused product interfaces, built a reusable Storybook component system, and shipped production-ready features across teams.",
+    text: "Built the AnjAI suite (Voice, Summarise, Forecast) and AI agent marketplace interfaces for the Cab9 platform, designed the company-wide Storybook component library, and led UX decisions across key product initiatives.",
   },
   {
-    years: "June 2022 - Jan 2021",
+    years: "June 2021 - May 2022",
     role: "Hyperverge Technologies (Internship)",
-    text: "Built frontend modules for a CLM product, strengthened React fundamentals, and delivered responsive components under fast-moving requirements.",
+    text: "Built the frontend for Hyperstart, an AI-powered CLM product, gaining hands-on experience with encryption/decryption workflows and shipping responsive, reusable React components under tight deadlines.",
   },
   {
     years: "June 2022 - Present",
@@ -28,33 +30,6 @@ const experiences = [
   },
 ];
 
-const projects = [
-  {
-    title: "Twitter Clone",
-    subtitle: "React + Tailwind",
-    text: "Front-end clone of Twitter login and timeline pages using React and Tailwind CSS.",
-  },
-  {
-    title: "Instagram Clone",
-    subtitle: "Interactive Social UI",
-    text: "Functional Instagram-style interface with account creation, posts, and comments.",
-  },
-  {
-    title: "Snake Game",
-    subtitle: "HTML, CSS, JS",
-    text: "Classic browser snake game implemented with vanilla HTML, CSS, and JavaScript.",
-  },
-  {
-    title: "Wordle Clone",
-    subtitle: "Game Logic",
-    text: "Word puzzle clone where users attempt to guess a five-letter word with feedback.",
-  },
-  {
-    title: "Tic Tac Toe",
-    subtitle: "Vanilla JS Project",
-    text: "Simple interactive Tic Tac Toe game built with core web technologies.",
-  },
-];
 
 const freelanceProjects = [
   {
@@ -139,39 +114,10 @@ const heroServices = [
 export default function Home() {
   const pageRef = useRef<HTMLDivElement>(null);
   const [isSocialMenuOpen, setIsSocialMenuOpen] = useState(false);
-  const [loadingProgress, setLoadingProgress] = useState(0);
-  const [isInitialLoading, setIsInitialLoading] = useState(true);
   const cvItem = socialItems.find((item) => item.label === "CV");
   const menuSocialItems = socialItems.filter((item) => item.label !== "CV");
 
   useEffect(() => {
-    let finishTimer: ReturnType<typeof setTimeout> | undefined;
-    const progressTimer = setInterval(() => {
-      setLoadingProgress((prev) => {
-        const nextValue = Math.min(prev + 2, 100);
-
-        if (nextValue === 100) {
-          clearInterval(progressTimer);
-          finishTimer = setTimeout(() => setIsInitialLoading(false), 180);
-        }
-
-        return nextValue;
-      });
-    }, 38);
-
-    return () => {
-      clearInterval(progressTimer);
-      if (finishTimer) {
-        clearTimeout(finishTimer);
-      }
-    };
-  }, []);
-
-  useEffect(() => {
-    if (isInitialLoading) {
-      return;
-    }
-
     gsap.registerPlugin(ScrollTrigger);
 
     const ctx = gsap.context(() => {
@@ -221,33 +167,7 @@ export default function Home() {
       ctx.revert();
       ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
     };
-  }, [isInitialLoading]);
-
-  if (isInitialLoading) {
-    return (
-      <div className={styles.loaderScreen} role="status" aria-live="polite">
-        <div className={styles.loaderCard}>
-          <img
-            src="/dietCoke.png"
-            width={120}
-            height={120}
-            alt="Diet Coke can"
-            className={styles.loaderImage}
-          />
-          <p className="text-black! text-center">
-            Oh shit! One sec dont leave im getting the website together
-          </p>
-          <div className={styles.loaderBarTrack} aria-hidden>
-            <div
-              className={styles.loaderBarFill}
-              style={{ width: `${loadingProgress}%` }}
-            />
-          </div>
-          <p className={styles.loaderPercent}>{loadingProgress}%</p>
-        </div>
-      </div>
-    );
-  }
+  }, []);
 
   return (
     <div ref={pageRef} className={styles.page}>
@@ -261,22 +181,21 @@ export default function Home() {
             <p className={styles.logo}>AJAY JAYAPRAKASH</p>
             <div className="flex items-center gap-2 justify-between w-full">
               <nav className={styles.pillNav} aria-label="Main">
-                {navItems.map((item, index) => (
+                {navItems.map((item) => (
                   <a
-                    className="cursor-pointer ring-2 w-8! h-8!  min-w-8! flex items-center justify-center rounded-full ring-zinc-200/50 border-zinc-300!"
-                    key={item.label + index}
+                    className="hover:bg-zinc-100! transition-all duration-300 hover:scale-105 cursor-pointer rounded-full px-3! py-1"
+                    key={item.label}
                     href={item.href}
                     target="_blank"
-                    title={item.label}
                     rel="noreferrer">
-                    {item.label.slice(0, 2)}
+                    {item.label}
                   </a>
                 ))}
               </nav>
               <div className={styles.heroSocials}>
                 {cvItem ? (
                   <a
-                    className="bg-orange-500! ring-2 ring-orange-300/50 border-orange-600! shadow border hover:ring-orange-300! hover:bg-orange-600! w-8 h-8 flex items-center justify-center text-xs! transition-all duration-300 hover:scale-105 text-white! cursor-pointer rounded-full"
+                    className="bg-orange-500! hover:bg-orange-600! w-7 h-7 flex items-center justify-center text-xs! transition-all duration-300 hover:scale-105 text-white! cursor-pointer rounded-full"
                     href={cvItem.href}
                     download="AjayJayaprakashCV.pdf"
                     aria-label={cvItem.label}>
@@ -285,7 +204,7 @@ export default function Home() {
                 ) : null}
                 <div className="relative">
                   <button
-                    className="cursor-pointer ring-2 ring-zinc-200/50 border-zinc-300!"
+                    className="cursor-pointer"
                     type="button"
                     aria-label="Menu"
                     aria-expanded={isSocialMenuOpen}
@@ -318,21 +237,25 @@ export default function Home() {
           </header>
 
           <div className={styles.heroMain} data-hero-headline>
-            <h1>EXPLORE MY PORTFOLIO</h1>
+            <h1>
+              EXPLORE MY
+              <br />
+              PORTFOLIO
+            </h1>
             <img
               src="/dietCoke.png"
               alt="bobbleHead"
-              className="absolute -top-4 rotate-15 left-0 w-12 md:w-32 md:bottom-0 md:right-4 xl:-top-10"
+              className="absolute top-0 rotate-15 left-4 w-12 md:w-32 md:bottom-0 md:right-4 xl:-top-10"
             />
             <img
               src="/bobbleHead.png"
               alt="bobbleHead"
-              className="absolute top-18 hidden md:block right-4 w-20 md:w-32 md:bottom-0 md:right-4"
+              className="absolute top-18 right-4 w-20 md:w-32 md:bottom-0 md:right-4"
             />
           </div>
 
-          <div className="flex flex-col items-center justify-center px-4 md:pt-6">
-            <p className="text-xl! md:text-2xl! bg-linear-to-r from-orange-500 to-yellow-300 text-transparent bg-clip-text uppercase font-semibold w-full text-center">
+          <div className="flex flex-col items-center justify-center px-4 pt-6">
+            <p className="text-2xl! bg-linear-to-r from-orange-500 to-yellow-300 text-transparent bg-clip-text uppercase font-semibold w-full text-center">
               Senior Frontend Developer
             </p>
             <p className="text-xl! font-medium w-full pt-1 text-center">
@@ -373,14 +296,20 @@ export default function Home() {
           <h2 className={styles.heading}>PROJECTS</h2>
           <div className={styles.awards}>
             {projects.map((item, idx) => (
-              <article key={item.title} className={styles.awardCard}>
-                <div className={styles.awardTop}>
-                  <h3 className="text-2xl!">{item.title}</h3>
-                  <span>[0{idx + 1}]</span>
-                </div>
-                <p className={styles.meta}>{item.subtitle}</p>
-                <p>{item.text}</p>
-              </article>
+              <Link
+                key={item.title}
+                href={`/projects/${item.slug}`}
+                className={styles.awardCard}
+                style={{ textDecoration: "none", color: "inherit", display: "block" }}>
+                <article>
+                  <div className={styles.awardTop}>
+                    <h3 className="text-2xl!">{item.title}</h3>
+                    <span>[{String(idx + 1).padStart(2, "0")}]</span>
+                  </div>
+                  <p className={styles.meta}>{item.subtitle}</p>
+                  <p>{item.text}</p>
+                </article>
+              </Link>
             ))}
           </div>
         </section>

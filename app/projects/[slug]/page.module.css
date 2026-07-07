@@ -1,0 +1,103 @@
+.page {
+  background: #fff;
+  color: #0f0f0f;
+  min-height: 100vh;
+}
+
+.container {
+  width: min(860px, 92vw);
+  margin: 0 auto;
+  padding: 2.5rem 0 6rem;
+}
+
+.back {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #555;
+  text-decoration: none;
+  border: 1px solid #ddd;
+  border-radius: 999px;
+  padding: 0.35rem 1rem;
+  margin-bottom: 2.8rem;
+  transition: background 0.18s;
+}
+
+.back:hover {
+  background: #f5f5f5;
+}
+
+.header {
+  margin-bottom: 1.4rem;
+}
+
+.subtitle {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #888;
+  margin-bottom: 0.55rem;
+}
+
+.title {
+  font-family: "Arial Black", Impact, sans-serif;
+  font-size: clamp(2.6rem, 7vw, 5rem);
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+}
+
+.techRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+}
+
+.techTag {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  border: 1px solid #ddd;
+  border-radius: 999px;
+  padding: 0.25rem 0.85rem;
+  color: #444;
+}
+
+.details {
+  font-size: 1.08rem;
+  line-height: 1.7;
+  color: #2a2a2a;
+  max-width: 68ch;
+  margin-bottom: 3rem;
+}
+
+.screenshots {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(340px, 100%), 1fr));
+  gap: 1rem;
+}
+
+.screenshotWrap {
+  border: 1px solid #ebebeb;
+  overflow: hidden;
+  border-radius: 0.5rem;
+}
+
+.screenshotWrap img {
+  width: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+.screenshotsPlaceholder {
+  border: 1px dashed #ddd;
+  border-radius: 0.75rem;
+  padding: 4rem 2rem;
+  text-align: center;
+  color: #aaa;
+  font-size: 0.88rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
